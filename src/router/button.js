@@ -4,7 +4,7 @@ export default [
     name: 'Button',
     component: () => import('@/views/antd/button'),
     meta: {
-      title: '按钮测试'
+      title: '按钮测试123'
     }
   }
 ]
