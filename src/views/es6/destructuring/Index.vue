@@ -1,12 +1,10 @@
 <template>
-<div>
-
-</div>
+<div>解构</div>
 </template>
 
 <script>
 export default {
-  name: 'Index'
+  name: 'DestructuringIndex'
 }
 </script>
 

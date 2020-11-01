@@ -1,12 +1,10 @@
 <template>
-<div>
-
-</div>
+<div>函数</div>
 </template>
 
 <script>
 export default {
-  name: 'Index'
+  name: 'FunctionIndex'
 }
 </script>
 

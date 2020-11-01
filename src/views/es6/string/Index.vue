@@ -1,12 +1,10 @@
 <template>
-<div>
-
-</div>
+<div>字符串</div>
 </template>
 
 <script>
 export default {
-  name: 'Index'
+  name: 'StringIndex'
 }
 </script>
 

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import button from './button'
+import es6 from './es6'
 Vue.use(Router)
 
 let routes = [
@@ -12,7 +13,8 @@ let routes = [
       title: '首页'
     }
   },
-  ...button
+  ...button,
+  ...es6
 ]
 
 export default new Router({

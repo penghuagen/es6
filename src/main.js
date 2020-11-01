@@ -3,10 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import VueWechatTitle from 'vue-wechat-title'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 
 Vue.use(Antd)
+Vue.use(VueWechatTitle)
 
 Vue.config.productionTip = false
 
