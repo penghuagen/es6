@@ -1,8 +1,8 @@
 <template>
-<div class="code-mirror-container">
+<div class="code-mirror-container" :class="{'cobalt': theme === 'cobalt'}" >
   <div class="code-mirror-header" :class="{'horizontal': horizontal}">
     <div class="icon-code stack" @click="horizontal = !horizontal"></div>
-    <div class="icon-code theme" @click="changeTheme"></div>
+    <div class="icon-code theme"  @click="changeTheme" ></div>
     <div class="icon-code try" @click="submitTryit"></div>
   </div>
   <div class="code-mirror-main">
@@ -127,7 +127,7 @@ export default {
 
   .horizontal{
     .stack{
-      background-position: -65px -300px;
+      background-position: -65px -375px;
     }
 
     .stack:hover{
@@ -145,19 +145,33 @@ export default {
       display: flex;
       height: 100%;
       .code-mirror-wrap{
-        width: 100%;
         flex: 1;
       }
 
       .code-mirror-result{
-        width: 100%;
+        background-color: #fff;
         flex: 1;
       }
     }
 
     .horizontal{
-      flex-wrap: wrap;
+      flex-direction: column;
     }
+  }
+}
+
+.cobalt{
+  background-color: #002240;
+  color: #ddd;
+  .code-mirror-header{
+    background-color:#002240 ;
+  }
+  .theme{
+    background-position: -130px -150px;
+  }
+
+  .theme:hover{
+    background-position: -130px -225px;
   }
 }
 </style>

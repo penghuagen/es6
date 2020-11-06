@@ -21,7 +21,7 @@
 import 'codemirror/mode/javascript/javascript.js'
 
 // import theme style
-// import 'codemirror/theme/base16-dark.css'
+import 'codemirror/theme/base16-dark.css'
 import 'codemirror/theme/cobalt.css'
 // import more 'codemirror/some-resource...'
 
@@ -34,6 +34,10 @@ export default {
         mode: 'text/javascript',
         // theme: 'base16-dark',
         theme: 'default',
+        htmlMode: true,
+        lineWrapping: true,
+        smartIndent: false,
+        addModeClass: true,
         lineNumbers: true,
         line: true
       }
