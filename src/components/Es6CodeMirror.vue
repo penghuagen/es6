@@ -1,5 +1,4 @@
 <template>
-  <div>
   <!-- Two-way Data-Binding -->
 <!--  <codemirror v-model="code" :options="cmOptions" />-->
 
@@ -12,16 +11,18 @@
     @focus="onCmFocus"
     @input="onCmCodeChange"
   />
-  </div>
 </template>
 
 <script>
+// codemirror的api
+// https://codemirror.net/doc/manual.html#api_sizing
+// https://github.com/surmon-china/vue-codemirror
 // import language js
 import 'codemirror/mode/javascript/javascript.js'
 
 // import theme style
-import 'codemirror/theme/base16-dark.css'
-
+// import 'codemirror/theme/base16-dark.css'
+import 'codemirror/theme/cobalt.css'
 // import more 'codemirror/some-resource...'
 
 export default {
@@ -29,12 +30,28 @@ export default {
     return {
       code: 'const a = 10',
       cmOptions: {
-        tabSize: 6,
+        tabSize: 4,
         mode: 'text/javascript',
-        theme: 'base16-dark',
+        // theme: 'base16-dark',
+        theme: 'default',
         lineNumbers: true,
         line: true
       }
+    }
+  },
+  props: {
+    theme: {
+      type: String,
+      default: 'default'
+    }
+  },
+  watch: {
+    theme: {
+      handler (val, oldVal) {
+        this.cmOptions.theme = val
+      },
+      deep: true,
+      immediate: true
     }
   },
   methods: {
@@ -60,3 +77,19 @@ export default {
   }
 }
 </script>
+<style scoped lang="less">
+  .vue-codemirror{
+    height: 100%;
+    /deep/  .CodeMirror {
+      border: 1px solid #eee;
+      height: 100%;
+    }
+
+    /deep/ .CodeMirror-scroll {
+      height: 100%;
+      overflow-y: hidden;
+      overflow-x: auto;
+    }
+  }
+
+</style>
