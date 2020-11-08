@@ -5,7 +5,7 @@
   <!-- Or manually control the data synchronization -->
   <codemirror
     ref="cmEditor"
-    :value="code"
+    :value="value"
     :options="cmOptions"
     @ready="onCmReady"
     @focus="onCmFocus"
@@ -26,7 +26,7 @@ import 'codemirror/theme/cobalt.css'
 export default {
   data () {
     return {
-      code: 'const a = 10',
+      value: '',
       cmOptions: {
         tabSize: 4,
         mode: 'text/javascript',
@@ -45,6 +45,10 @@ export default {
     theme: {
       type: String,
       default: 'default'
+    },
+    code: {
+      type: String,
+      default: ''
     }
   },
   watch: {
@@ -65,7 +69,7 @@ export default {
     },
     onCmCodeChange (newCode) {
       console.log('this is new code', newCode)
-      this.code = newCode
+      this.value = newCode
     }
   },
   computed: {

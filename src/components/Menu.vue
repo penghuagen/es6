@@ -4,7 +4,6 @@
       <a-icon
         class="trigger"
         :type="collapsed ? 'menu-unfold' : 'menu-fold'"
-        @click="() => (collapsed = !collapsed)"
       /><span>ES6用例</span></div>
     <a-menu theme="dark" mode="inline" :default-selected-keys="selectedKey" @click="changeMenu">
       <a-menu-item v-for="item in list" :key="item.index">
@@ -37,7 +36,7 @@ export default {
         {
           name: '代码调试',
           index: '0',
-          icon: 'user',
+          icon: 'retweet',
           path: '/code'
         },
         {
@@ -65,20 +64,21 @@ export default {
     changeMenu (item) {
       if (item) {
         let currentItem = this.list.find(n => n.index === item.key)
+        let route = this.$route
         if (currentItem) {
-          if (currentItem.path) {
+          // 点击的不是已展开的菜单
+          if (currentItem.path && currentItem.path !== route.path) {
             this.$router.push({
               path: currentItem.path
             })
           }
         }
       }
-      console.log(item)
     },
     getActiveIndex () {
       let list = this.list
       let route = this.$route
-      console.log(route)
+      // console.log(route)
       if (list && list.length > 0) {
         for (let item of list) {
           if (item.list && item.list.length > 0) {

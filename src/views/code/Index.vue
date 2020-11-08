@@ -8,7 +8,7 @@
   <div class="code-mirror-main">
     <div class="code-mirror-layout" :class="{'horizontal': horizontal}">
       <div class="code-mirror-wrap">
-        <es6-code-mirror :theme="theme" ref="codeMirror"></es6-code-mirror>
+        <es6-code-mirror :theme="theme" :code="code" ref="codeMirror"></es6-code-mirror>
       </div>
       <div class="code-mirror-result">
         <div id="iframewrapper"></div>
@@ -24,8 +24,9 @@ export default {
   name: 'CodeIndex',
   data () {
     return {
-      horizontal: false,
-      theme: 'default'
+      code: '', // 调试的代码
+      horizontal: false, // 是否是横向
+      theme: 'default' // 调试主题
     }
   },
   components: {
@@ -36,7 +37,7 @@ export default {
       this.theme = this.theme === 'default' ? 'cobalt' : 'default'
     },
     submitTryit () {
-      var text = this.$refs.codeMirror.code
+      var text = this.$refs.codeMirror.value
       var patternHtml = /<html[^>]*>((.|[\n\r])*)<\/html>/im
       var patternHead = /<head[^>]*>((.|[\n\r])*)<\/head>/im
       var arrayMatchesHead = patternHead.exec(text)
@@ -82,7 +83,6 @@ export default {
   flex-direction: column;
   overflow:visible;
   background-color: #fff;
-  padding:0 15px 15px 0;
   .code-mirror-header{
     display: flex;
     flex-shrink:0;
@@ -140,7 +140,6 @@ export default {
     overflow:auto;
     flex-shrink:1;
     -webkit-overflow-scrolling:touch;
-
     .code-mirror-layout{
       display: flex;
       height: 100%;
