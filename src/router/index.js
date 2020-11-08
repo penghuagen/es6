@@ -13,6 +13,14 @@ let routes = [
       title: '首页'
     }
   },
+  {
+    path: '/code',
+    name: 'CodeIndex',
+    component: () => import('@/views/code/Index'),
+    meta: {
+      title: '代码测试'
+    }
+  },
   ...button,
   ...es6
 ]

@@ -35,6 +35,12 @@ export default {
     list () {
       return [
         {
+          name: '代码调试',
+          index: '0',
+          icon: 'user',
+          path: '/code'
+        },
+        {
           name: '解构赋值',
           index: '1',
           icon: 'user',

@@ -17,13 +17,11 @@
 // codemirror的api
 // https://codemirror.net/doc/manual.html#api_sizing
 // https://github.com/surmon-china/vue-codemirror
-// import language js
 import 'codemirror/mode/javascript/javascript.js'
 
 // import theme style
 import 'codemirror/theme/base16-dark.css'
 import 'codemirror/theme/cobalt.css'
-// import more 'codemirror/some-resource...'
 
 export default {
   data () {
@@ -38,8 +36,8 @@ export default {
         lineWrapping: true,
         smartIndent: false,
         addModeClass: true,
-        lineNumbers: true,
-        line: true
+        lineNumbers: false,
+        line: false
       }
     }
   },
@@ -87,6 +85,15 @@ export default {
     /deep/  .CodeMirror {
       border: 1px solid #eee;
       height: 100%;
+    }
+
+    /deep/ .cm-s-cobalt.CodeMirror{
+      background-color: #282c34;
+      border: 1px solid #353940;
+    }
+
+    /deep/ .cm-s-cobalt .CodeMirror-gutters{
+      background-color: #282c34;
     }
 
     /deep/ .CodeMirror-scroll {

@@ -21,7 +21,7 @@
 <script>
 import Es6CodeMirror from '@/components/Es6CodeMirror'
 export default {
-  name: 'DestructuringIndex',
+  name: 'CodeIndex',
   data () {
     return {
       horizontal: false,
@@ -171,13 +171,13 @@ export default {
   color: #ddd;
   .code-mirror-header{
     background-color:#353940;
-  }
-  .theme{
-    background-position: -130px -150px;
-  }
+    .theme{
+      background-position: -130px -150px;
+    }
 
-  .theme:hover{
-    background-position: -130px -225px;
+    .theme:hover{
+      background-position: -130px -225px;
+    }
   }
 }
 </style>
