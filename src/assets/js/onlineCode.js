@@ -16,6 +16,7 @@ let ascSort = {
   ],
   // extType的排序数据
   extTypeSort: ['Dept', 'AO', 'FaxUser', 'VirtualUser', 'DigitalUser'],
+  sortProp:['firstName', 'lastName', 'ext'],
   /**
    * 排序方法、只支持升序
    * @param item1
@@ -51,9 +52,8 @@ let ascSort = {
    * @param extensions
    */
   sortExtensionsByName () {
-    let sortProp = ['firstName', 'lastName', 'ext']
     this.extensions.sort((a, b) => {
-      return this.ascSort(a, b, sortProp)
+      return this.ascSort(a, b, this.sortProp)
     })
     return this.extensions
   },
@@ -158,12 +158,12 @@ let sumQuarter = {
 
 }
 
-/**
- * 数组过滤
- * @param allKeys
- * @param usedKeys
- * @returns Array
- */
+  /**
+   * 数组过滤
+   * @param allKeys
+   * @param usedKeys
+   * @returns Array
+   */
 function getUnUsedKeys (allKeys, usedKeys = []) {
   let dataType = Object.prototype.toString.call(allKeys)
   if (dataType === '[object Number]') {
@@ -184,7 +184,9 @@ let SequenceConfig = {
   idx: 0
 }
 
-// 主键生成器
+/**
+ * 序列号生成器
+ */
 class Sequence {
   constructor (incr = 1) {
     this.incr = incr
@@ -308,3 +310,4 @@ console.log(sequence3.next())
 console.log(sequence1.next())
 // getUnUsedKeys 按指定数组排序
 console.log('getUnUsedKeys:%o', getUnUsedKeys(100, [1, 2, 3, 4, 5, 2, 3, 4, 100]))
+console.log('getUnUsedKeys:%o', getUnUsedKeys([1,2,3,4,5], [1, 2]))
