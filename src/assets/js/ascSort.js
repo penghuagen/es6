@@ -101,8 +101,33 @@ function sortExtensionsByExtType1(extensions){
   return array
 }
 
-// 方法调用
-console.log('sortExtensionsByName:%o', sortExtensionsByName(extensions))
-console.log('sortExtensionsByExtType:%o', sortExtensionsByExtType(extensions))
-console.log('sortExtensionsByExtType1:%o', sortExtensionsByExtType1(extensions))
+/**
+ * 数组过滤
+ * @param allKeys
+ * @param usedKeys
+ * @returns Array
+ */
+function getUnUsedKeys(allKeys, usedKeys = []) {
+  let dataType = Object.prototype.toString.call(allKeys)
+  if (dataType === '[object Number]') {
+    let array = []
+    for (let i = 0; i <= allKeys; i++) {
+      array.push(i);
+    }
+    return array.filter(key => !usedKeys.includes(key))
+  } else if (dataType === '[object Array]') {
+    return allKeys.filter(key => !usedKeys.includes(key))
+  } else {
+    console.log('allKeys should be an array or number');
+  }
+}
 
+
+// 名称排序
+console.log('sortExtensionsByName:%o', sortExtensionsByName(extensions))
+// extType 按指定数组排序
+console.log('sortExtensionsByExtType:%o', sortExtensionsByExtType(extensions))
+// extType 按指定数组排序
+console.log('sortExtensionsByExtType1:%o', sortExtensionsByExtType1(extensions))
+// getUnUsedKeys 按指定数组排序
+console.log('getUnUsedKeys:%o', getUnUsedKeys(100, [1,2,3,4,5,2,3,4,100]))

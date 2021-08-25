@@ -32,7 +32,7 @@ function sumByQuarter(saleItems) {
     let value = quarterMap[quarter]
     let transactionNums = value.length
     let totalPrices = value.reduce((prev, cur) => {
-      return accAdd(prev, cur.salePrice)
+      return math.accAdd(prev, cur.salePrice)
     }, 0)
 
     array.push({
@@ -53,7 +53,7 @@ function sumByQuarter(saleItems) {
 function averageByQuarter(saleItems){
   let array = sumByQuarter(saleItems)
   array.forEach(item => {
-    item.totalPrices = accDiv(item.totalPrices, item.transactionNums, 2)
+    item.totalPrices = math.accDiv(item.totalPrices, item.transactionNums, 2)
   })
   // 属性名替换
   array = JSON.parse(JSON.stringify(array).replace(/totalPrices/g,"averagePrices"));
@@ -61,91 +61,91 @@ function averageByQuarter(saleItems){
 }
 
 /**
- * 除法 解决数字精度丢失
- * @param arg1
- * @param arg2
- * @param decimals 保留小数的位数
- * @returns {number|*}
+ * 数字运算
  */
-function accDiv(arg1, arg2, decimals) {
-  let [t1, t2] = getDitLength(arg1, arg2);
-  let num = Number((decimalToInt(arg1) / decimalToInt(arg2)) * Math.pow(10, t2 - t1));
-  return decimalsFormat(num, decimals);
-}
+let math = {
+  /**
+   * 除法 解决数字精度丢失
+   * @param arg1
+   * @param arg2
+   * @param decimals 保留小数的位数
+   * @returns {number|*}
+   */
+   accDiv(arg1, arg2, decimals){
+    let [t1, t2] = this.getDitLength(arg1, arg2);
+    let num = Number((this.decimalToInt(arg1) / this.decimalToInt(arg2)) * Math.pow(10, t2 - t1));
+    return this.decimalsFormat(num, decimals);
+  },
+  /**
+   * 加法
+   * @param arg1
+   * @param arg2
+   * @returns {number|*}
+   */
+  accAdd(arg1, arg2) {
+    let [r1, r2] = this.getDitLength(arg1, arg2);
+    let m = Math.pow(10, Math.max(r1, r2));
+    return this.accDiv((this.accMul(arg1, m) + this.accMul(arg2, m)) , m, 2);
+  },
+  /**
+   * 乘法
+   * @param arg1
+   * @param arg2
+   * @param decimals 保留小数的位数
+   * @returns {number|*}
+   */
+  accMul(arg1, arg2, decimals) {
+    let [r1, r2] = this.getDitLength(arg1, arg2);
+    let m = r1 + r2;
+    let num = this.decimalToInt(arg1) * this.decimalToInt(arg2) / Math.pow(10, m);
+    return this.decimalsFormat(num, decimals);
+  },
+  /**
+   * 获取小数点的位数
+   * @param arg1
+   * @param arg2
+   * @returns {[number, number]}
+   */
+   getDitLength(arg1, arg2) {
+      let r1, r2;
+      try {
+        r1 = arg1.toString().split(".")[1].length;
+      } catch (e) {
+        r1 = 0;
+      }
 
-/**
- * 加法
- * @param arg1
- * @param arg2
- * @returns {number|*}
- */
-function accAdd(arg1, arg2) {
- let [r1, r2] = getDitLength(arg1, arg2);
- let m = Math.pow(10, Math.max(r1, r2));
- return accDiv((accMul(arg1, m) + accMul(arg2, m)) , m, 2);
-}
-
-/**
- * 乘法
- * @param arg1
- * @param arg2
- * @param decimals 保留小数的位数
- * @returns {number|*}
- */
-function accMul(arg1, arg2, decimals) {
-  let [r1, r2] = getDitLength(arg1, arg2);
-  let m = r1 + r2;
-  let num = decimalToInt(arg1) * decimalToInt(arg2) / Math.pow(10, m);
-  return decimalsFormat(num, decimals);
-}
-
-/**
- * 获取小数点的位数
- * @param arg1
- * @param arg2
- * @returns {[number, number]}
- */
-function getDitLength(arg1, arg2) {
-  let r1, r2;
-  try {
-    r1 = arg1.toString().split(".")[1].length;
-  } catch (e) {
-    r1 = 0;
+      try {
+        r2 = arg2.toString().split(".")[1].length;
+      } catch (e) {
+        r2 = 0;
+      }
+      return [r1, r2]
+    },
+  /**
+   * 保留小数位
+   * @param num
+   * @param decimals
+   * @returns {number}
+   */
+  decimalsFormat(num, decimals) {
+      if (decimals != undefined && decimals >= 0) {
+        num = Math.round(num * Math.pow(10, decimals)) / Math.pow(10, decimals);
+      }
+      return num;
+  },
+  /**
+   * 去掉小数点
+   * @param param
+   * @returns {number}
+   */
+  decimalToInt(param){
+    return Number(param.toString().replace(".", ""))
   }
-
-  try {
-    r2 = arg2.toString().split(".")[1].length;
-  } catch (e) {
-    r2 = 0;
-  }
-
-  return [r1, r2]
 }
 
-/**
- * 保留小数位
- * @param num
- * @param decimals
- * @returns {number}
- */
-function decimalsFormat(num, decimals) {
-  if (decimals != undefined && decimals >= 0) {
-    num = Math.round(num * Math.pow(10, decimals)) / Math.pow(10, decimals);
-  }
-  return num;
-}
-
-/**
- * 去掉小数点
- * @param param
- * @returns {number}
- */
-function decimalToInt(param){
- return Number(param.toString().replace(".", ""))
-}
-
-// 方法调用
+// 计算季度销量
 console.log('sumByQuarter:%o', sumByQuarter(saleItems))
+// 计算季度平均销量
 console.log('averageByQuarter:%o', averageByQuarter(saleItems))
 
 
