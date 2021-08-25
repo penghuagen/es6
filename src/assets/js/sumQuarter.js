@@ -55,7 +55,7 @@ function averageByQuarter(saleItems){
   array.forEach(item => {
     item.totalPrices = accDiv(item.totalPrices, item.transactionNums, 2)
   })
-
+  // 属性名替换
   array = JSON.parse(JSON.stringify(array).replace(/totalPrices/g,"averagePrices"));
   return array
 }
@@ -69,9 +69,7 @@ function averageByQuarter(saleItems){
  */
 function accDiv(arg1, arg2, decimals) {
   let [t1, t2] = getDitLength(arg1, arg2);
-  let r1 = Number(arg1.toString().replace(".", ""));
-  let r2 = Number(arg2.toString().replace(".", ""));
-  let num = Number((r1 / r2) * Math.pow(10, t2 - t1));
+  let num = Number((decimalToInt(arg1) / decimalToInt(arg2)) * Math.pow(10, t2 - t1));
   return decimalsFormat(num, decimals);
 }
 
@@ -95,10 +93,9 @@ function accAdd(arg1, arg2) {
  * @returns {number|*}
  */
 function accMul(arg1, arg2, decimals) {
-  let s1 = arg1.toString(), s2 = arg2.toString();
   let [r1, r2] = getDitLength(arg1, arg2);
   let m = r1 + r2;
-  let num = Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
+  let num = decimalToInt(arg1) * decimalToInt(arg2) / Math.pow(10, m);
   return decimalsFormat(num, decimals);
 }
 
@@ -136,6 +133,15 @@ function decimalsFormat(num, decimals) {
     num = Math.round(num * Math.pow(10, decimals)) / Math.pow(10, decimals);
   }
   return num;
+}
+
+/**
+ * 去掉小数点
+ * @param param
+ * @returns {number}
+ */
+function decimalToInt(param){
+ return Number(param.toString().replace(".", ""))
 }
 
 // 方法调用
