@@ -1,3 +1,8 @@
+/**
+ * 针对数组排序问题解答
+ * @type {*[]}
+ */
+
 // 测试数据
 const extensions = [
   {firstName: 'a', lastName: 'pn', ext: 33, extType: 'DigitalUser'},
@@ -66,13 +71,8 @@ function sortExtensionsByExtType(extensions){
   let map = {}
   //转化成map
   extensions.forEach(item => {
-    if (map[item.extType]) {
-      map[item.extType].push(item)
-    } else {
-      let value = []
-      value.push(item)
-      map[item.extType] = value
-    }
+    map[item.extType] = map[item.extType] || []
+    map[item.extType].push(item)
   })
 
   extTypeSort.forEach(extType => {
@@ -101,6 +101,7 @@ function sortExtensionsByExtType1(extensions){
   return array
 }
 
+// 方法调用
 console.log('sortExtensionsByName:%o', sortExtensionsByName(extensions))
 console.log('sortExtensionsByExtType:%o', sortExtensionsByExtType(extensions))
 console.log('sortExtensionsByExtType1:%o', sortExtensionsByExtType1(extensions))
