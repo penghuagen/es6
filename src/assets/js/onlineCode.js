@@ -17,13 +17,7 @@ let ascSort = {
   // extType的排序数据
   extTypeSort: ['Dept', 'AO', 'FaxUser', 'VirtualUser', 'DigitalUser'],
   sortProp:['firstName', 'lastName', 'ext'],
-  /**
-   * 排序方法、只支持升序
-   * @param item1
-   * @param item2
-   * @param propArray 排序属性数组
-   * @returns {boolean|*}
-   */
+  // 排序方法、只支持升序
   ascSort (item1, item2, propArray) {
     let compareArray = []
     for (let i = 0; i < propArray.length; i++) {
@@ -47,10 +41,7 @@ let ascSort = {
     return false
   },
 
-  /**
-   * sort extensions by "firstName" + "lastName" + "ext" ASC
-   * @param extensions
-   */
+  // 按名称排序
   sortExtensionsByName () {
     this.extensions.sort((a, b) => {
       return this.ascSort(a, b, this.sortProp)
@@ -110,11 +101,7 @@ let sumQuarter = {
     {month: 9, date: 2, transationId: '7', salePrice: 23.01},
     {month: 10, date: 3, transationId: '8', salePrice: 11.11}
   ],
-  /**
-   * 计算季度销量
-   * @param saleItems
-   * @returns {[]}
-   */
+  // 计算季度销量
   sumByQuarter () {
     let array = []
     let quarterMap = {}
@@ -141,11 +128,7 @@ let sumQuarter = {
     return array
   },
 
-  /**
-   * 计算季度平均销量
-   * @param saleItems
-   * @returns {*|*[]}
-   */
+  // 计算季度平均销量
   averageByQuarter () {
     let array = this.sumByQuarter(this.saleItems)
     array.forEach(item => {
@@ -155,15 +138,9 @@ let sumQuarter = {
     array = JSON.parse(JSON.stringify(array).replace(/totalPrices/g, 'averagePrices'))
     return array
   }
-
 }
 
-  /**
-   * 数组过滤
-   * @param allKeys
-   * @param usedKeys
-   * @returns Array
-   */
+// 数组过滤
 function getUnUsedKeys (allKeys, usedKeys = []) {
   let dataType = Object.prototype.toString.call(allKeys)
   if (dataType === '[object Number]') {
@@ -184,9 +161,7 @@ let SequenceConfig = {
   idx: 0
 }
 
-/**
- * 序列号生成器
- */
+// 序列号生成器
 class Sequence {
   constructor (incr = 1) {
     this.incr = incr
@@ -208,48 +183,26 @@ class Sequence {
  * 数字运算
  */
 let math = {
-  /**
-   * 除法 解决数字精度丢失
-   * @param arg1
-   * @param arg2
-   * @param decimals 保留小数的位数
-   * @returns {number|*}
-   */
+  // 除法
   accDiv (arg1, arg2, decimals) {
     let [t1, t2] = this.getDitLength(arg1, arg2)
     let num = Number((this.decimalToInt(arg1) / this.decimalToInt(arg2)) * Math.pow(10, t2 - t1))
     return this.decimalsFormat(num, decimals)
   },
-  /**
-   * 加法
-   * @param arg1
-   * @param arg2
-   * @returns {number|*}
-   */
+  // 加法
   accAdd (arg1, arg2) {
     let [r1, r2] = this.getDitLength(arg1, arg2)
     let m = Math.pow(10, Math.max(r1, r2))
     return this.accDiv((this.accMul(arg1, m) + this.accMul(arg2, m)), m, 2)
   },
-  /**
-   * 乘法
-   * @param arg1
-   * @param arg2
-   * @param decimals 保留小数的位数
-   * @returns {number|*}
-   */
+  // 乘法
   accMul (arg1, arg2, decimals) {
     let [r1, r2] = this.getDitLength(arg1, arg2)
     let m = r1 + r2
     let num = this.decimalToInt(arg1) * this.decimalToInt(arg2) / Math.pow(10, m)
     return this.decimalsFormat(num, decimals)
   },
-  /**
-   * 获取小数点的位数
-   * @param arg1
-   * @param arg2
-   * @returns {[number, number]}
-   */
+  // 获取小数点的位数
   getDitLength (arg1, arg2) {
     let r1, r2
     try {
@@ -265,23 +218,13 @@ let math = {
     }
     return [r1, r2]
   },
-  /**
-   * 保留小数位
-   * @param num
-   * @param decimals
-   * @returns {number}
-   */
+  // 保留小数位
   decimalsFormat (num, decimals) {
     if (decimals != undefined && decimals >= 0) {
       num = Math.round(num * Math.pow(10, decimals)) / Math.pow(10, decimals)
     }
     return num
   },
-  /**
-   * 去掉小数点
-   * @param param
-   * @returns {number}
-   */
   decimalToInt (param) {
     return Number(param.toString().replace('.', ''))
   }
