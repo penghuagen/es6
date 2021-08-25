@@ -2,7 +2,6 @@
  * 针对数组排序问题解答
  * @type {*[]}
  */
-
 // 测试数据
 const extensions = [
   {firstName: 'a', lastName: 'pn', ext: 33, extType: 'DigitalUser'},
